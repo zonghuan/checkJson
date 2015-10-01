@@ -92,10 +92,9 @@
 				});
 			}else if(cur.sign === valueSign){
 				pop = stack.pop();
-				if(!pop && 
-					pop.sign !== valueSign &&
+				if(!pop && (pop.sign !== valueSign &&
 					pop.sign !== objSign &&
-					pop.sign !== arrSign){
+					pop.sign !== arrSign)){
 					return false;
 				}
 				pop = stack.pop();
@@ -129,6 +128,12 @@
 		}	
 		if(endJson === str[i]){
 			pop = stack.pop();
+
+			//@note }前不允许时逗号
+			if(pop["char"] === douhao){
+				return false;
+			} 
+
 			//@note 空json
 			if(pop["char"] === startJson){
 				stack.push({
@@ -137,10 +142,9 @@
 				continue;
 			}
 
-			if(!pop &&
-				pop.sign !== valueSign && 
+			if(!pop || (pop.sign !== valueSign && 
 				pop.sign !== objSign &&
-				pop.sign !== arrSign){
+				pop.sign !== arrSign)){
 				return false;
 			}
 			pop = stack.pop();
@@ -158,6 +162,7 @@
 			if(pop.sign !== pairSign){
 				return false;
 			}
+
 			do{
 				if(pop["char"] === startJson){
 					break;
@@ -197,6 +202,12 @@
 		}
 		if(endArr === str[i]){
 			pop = stack.pop();
+
+			//@note ]前不允许是逗号
+			if(pop["char"] === douhao){
+				return false;
+			}
+
 			do{
 				if(pop["char"] === startArr){
 					break;
