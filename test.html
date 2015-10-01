@@ -1,0 +1,33 @@
+<html>
+	<head>
+		<title>test</title>
+		<script type="text/javascript" src="index.js"></script>
+	</head>
+	<body>
+		<script type="text/javascript">
+
+			var test = [
+				'{}', //true
+				'{"a":"b"}', //true
+				'{a}', //false
+
+				'{"a":{"b":"c"}}', //true
+				'{"a":{"b":"c}}', //false
+
+				'{"a":{"b:"a"}}', //true
+				'{"a":{"b:"a",}}', //false
+
+				'["1","2","3","4"]', //true
+				'["1","2","3","4",]', //false
+
+				'["2",{"2":{"3":"ccc"}}]', //true
+				'["2",{"2":{"3":"ccc"}}}]' //false
+			];
+			
+			for(var i = 0;i < test.length;i++){
+				console.log(checkJson(test[i]));
+			}
+
+		</script>
+	</body>
+</html>
